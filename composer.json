@@ -19,9 +19,7 @@
         }
     },
     "extra": {
-        "branch-alias": {
-            "dev-develop": "1.0-dev"
-        },
+
         "laravel": {
             "aliases": {
                 "AliyunDB": "Donng\\AliyunDB\\Facades\\AliyunDB"
