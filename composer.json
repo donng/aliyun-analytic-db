@@ -1,0 +1,34 @@
+{
+    "name": "donng/aliyun-db",
+    "description": "阿里云分析型数据库pdo连接层",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "donng",
+            "email": "xdong001@126.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "illuminate/support": "5.5.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Donng\\AliyunDB\\": "src"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-develop": "1.0-dev"
+        },
+        "laravel": {
+            "aliases": {
+                "AliyunDB": "Donng\\AliyunDB\\Facades\\AliyunDB"
+            },
+            "providers": [
+                "Donng\\AliyunDB\\Providers\\AliyunDBProvider"
+            ]
+        }
+    },
+}
