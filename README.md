@@ -5,11 +5,11 @@
 ### 安装
 安装有两种方式：
 ##### ① 执行命令安装
-``` 
+```bash 
 composer require donng/aliyun-analytic-db 
 ```
 ##### ② 直接编辑composer.json
-```
+```json
 require: {
     "donng/aliyun-analytic-db": "^1.1",
 }
@@ -18,18 +18,18 @@ require: {
 
 ### 配置
 ##### ① 生成配置文件
-``` 
+```bash
 php artisan vendor:publish --provider="Donng\AnalyticDB\Providers\AnalyticDBProvider"
 ```
 ##### ② 生成sql记录的表 
-  ```
+  ```bash
   php artisan migrate
   ```
   
 >生成sql_records表，记录执行的表和运行的时间，默认关闭。如果不需要sql记录功能，####可跳过此步骤。
 
 ### 使用
-``` 
+```php
 use AnalyticDB;
 
 $result = AnalyticDB::select($sql)->get();
