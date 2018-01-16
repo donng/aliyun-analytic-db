@@ -1,13 +1,13 @@
 <?php
 
-namespace Donng\AliyunDB\Facades;
+namespace Donng\AnalyticDB\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
-class AliyunDB extends Facade
+class AnalyticDB extends Facade
 {
     public static function getFacadeAccessor()
     {
-        return 'AliyunDB';
+        return 'AnalyticDB';
     }
 }

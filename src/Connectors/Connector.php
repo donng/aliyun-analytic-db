@@ -6,11 +6,10 @@
  * Time: 下午4:07
  */
 
-namespace Donng\AliyunDB\Connectors;
+namespace Donng\AnalyticDB\Connectors;
 
 
 class Connector
 {
-
 
 }

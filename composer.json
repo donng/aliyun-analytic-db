@@ -15,16 +15,16 @@
     },
     "autoload": {
         "psr-4": {
-            "Donng\\AliyunDB\\": "src"
+            "Donng\\AnalyticDB\\": "src"
         }
     },
     "extra": {
         "laravel": {
             "aliases": {
-                "AliyunDB": "Donng\\AliyunDB\\Facades\\AliyunDB"
+                "AnalyticDB": "Donng\\AnalyticDB\\Facades\\AnalyticDB"
             },
             "providers": [
-                "Donng\\AliyunDB\\Providers\\AliyunDBProvider"
+                "Donng\\AnalyticDB\\Providers\\AnalyticDBProvider"
             ]
         }
     }

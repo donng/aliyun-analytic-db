@@ -6,8 +6,9 @@
  * Time: 下午4:53
  */
 
-namespace Donng\AliyunDB;
+namespace Donng\AnalyticDB;
 
+use Log;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use InvalidArgumentException;
@@ -44,19 +45,17 @@ class AliyunDatabaseManager
      */
     public function connection($name = '')
     {
-        $connection = $this->getDefaultConnection();
-
-        $name = $name ?: $connection;
+        $name = $name ?: $this->getDefaultConnection();
 
         if (!isset($this->connections[$name])) {
-            $this->connections[$name] = $this->makeConnection($connection);
+            $this->connections[$name] = $this->makeConnection($name);
         }
 
         return $this->connections[$name];
     }
 
     /**
-     * 制造一个数据库连接
+     * 生成一个数据库连接
      * @param $name
      * @return \Illuminate\Database\Connection
      */
@@ -64,8 +63,10 @@ class AliyunDatabaseManager
     {
         // 依据连接名获得连接信息
         $config = $this->configuration($name);
+        // 获得日志记录信息
+        $record = $this->app['config']['aliyun_db'];
         // 连接工厂生成连接实例
-        return $this->factory->make($config, $name);
+        return $this->factory->make($config, $record, $name);
     }
 
     /**

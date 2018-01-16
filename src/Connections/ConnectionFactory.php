@@ -6,28 +6,29 @@
  * Time: 下午6:02
  */
 
-namespace Donng\AliyunDB\Connections;
+namespace Donng\AnalyticDB\Connections;
 
 use Illuminate\Support\Arr;
 use InvalidArgumentException;
 use Illuminate\Database\Connectors\Connector;
 
-use Donng\AliyunDB\Connectors;
-use Donng\AliyunDB\Connections;
+use Donng\AnalyticDB\Connectors;
+use Donng\AnalyticDB\Connections;
 
 class ConnectionFactory
 {
     /**
      * 按照配置文件建立PDO连接
      * @param array $config
+     * @param array $record
      * @param $name
-     * @return mixed
+     * @return MySqlConnection
      */
-    public function make(array $config, $name = null)
+    public function make(array $config, array $record, $name)
     {
         $config = $this->parseConfig($config, $name);
 
-        return $this->createSingleConnection($config);
+        return $this->createSingleConnection($config, $record);
     }
 
     /**
@@ -42,10 +43,9 @@ class ConnectionFactory
     }
 
 
-    protected function createSingleConnection(array $config)
+    protected function createSingleConnection(array $config, array $record)
     {
-
-        return new MySqlConnection($config);
+        return new MySqlConnection($config, $record);
     }
 
     /**

@@ -1,12 +1,12 @@
 <?php
 
-namespace Donng\AliyunDB\Providers;
+namespace Donng\AnalyticDB\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Donng\AliyunDB\AliyunDatabaseManager;
-use Donng\AliyunDB\Connections\ConnectionFactory;
+use Donng\AnalyticDB\AliyunDatabaseManager;
+use Donng\AnalyticDB\Connections\ConnectionFactory;
 
-class AliyunDBProvider extends ServiceProvider
+class AnalyticDBProvider extends ServiceProvider
 {
     /**
      * Bootstrap the application services.
@@ -15,7 +15,8 @@ class AliyunDBProvider extends ServiceProvider
      */
     public function boot()
     {
-        //php artisan vendor:publish --provider="Donng\AliyunDB\Providers\AliyunDBProvider"
+        //php artisan vendor:publish --provider="Donng\AnalyticDB\Providers\AnalyticDBProvider"
+        $this->loadMigrationsFrom(__DIR__.'/../../migrations');
 
         $this->publishes([
             __DIR__.'/../../config/config.php' => config_path('aliyun_db.php')
@@ -29,7 +30,7 @@ class AliyunDBProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->singleton('AliyunDB', function ($app) {
+        $this->app->singleton('AnalyticDB', function ($app) {
             return new AliyunDatabaseManager($app, new ConnectionFactory());
         });
     }

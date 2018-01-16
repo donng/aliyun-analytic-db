@@ -6,7 +6,7 @@
  * Time: 下午3:36
  */
 
-namespace Donng\AliyunDB\Connectors;
+namespace Donng\AnalyticDB\Connectors;
 
 use Illuminate\Database\Connectors\Connector;
 
