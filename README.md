@@ -22,9 +22,9 @@ require: {
 php artisan vendor:publish --provider="Donng\AnalyticDB\Providers\AnalyticDBProvider"
 ```
 ##### ② 生成sql记录的表 
-  ```bash
-  php artisan migrate
-  ```
+```bash
+php artisan migrate
+```
   
 >生成sql_records表，记录执行的表和运行的时间，默认关闭。如果不需要sql记录功能，####可跳过此步骤。
 
