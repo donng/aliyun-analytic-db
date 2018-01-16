@@ -81,26 +81,37 @@ class MySqlConnection extends Connection
 
     /**
      * 执行查询和日志记录
-     * @param $method
+     * @param $fetchType
      * @return mixed
      */
-    protected function fetchData($method)
+    protected function fetchData($fetchType)
     {
         $startTime = time();
 
-        $query = $this->getQuery($this->sql);
-
-        $result = call_user_func_array([$query, $method], [\PDO::FETCH_ASSOC]);
+        $result = $this->executeSql($fetchType);
 
         $time = time() - $startTime;
 
-        if ($result && true == $this->record['record']) {
+        if ($result && $this->needRecord()) {
             $this->record($time);
         }
 
         return $result;
     }
 
+    /**
+     * 以指定的查询方法执行sql
+     * @param $fetchType
+     * @return mixed
+     */
+    protected function executeSql($fetchType)
+    {
+        $query = $this->getQuery($this->sql);
+
+        $result = $result = call_user_func_array([$query, $fetchType], [\PDO::FETCH_ASSOC]);
+
+        return $result;
+    }
 
     /**
      * @param $sql
@@ -118,5 +129,14 @@ class MySqlConnection extends Connection
     protected function record($time)
     {
         DB::connection($this->record['record_connection'])->insert('insert into sql_records (`sql`, `time`) values (?, ?)', [$this->sql, $time]);
+    }
+
+    /**
+     *
+     * @return bool
+     */
+    protected function needRecord()
+    {
+        return $this->record['record'] === true;
     }
 }
