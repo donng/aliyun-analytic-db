@@ -1,5 +1,5 @@
 {
-    "name": "donng/aliyun-db",
+    "name": "donng/aliyun-analytic-db",
     "description": "阿里云分析型数据库pdo连接层",
     "type": "library",
     "license": "MIT",
@@ -19,7 +19,6 @@
         }
     },
     "extra": {
-
         "laravel": {
             "aliases": {
                 "AliyunDB": "Donng\\AliyunDB\\Facades\\AliyunDB"
