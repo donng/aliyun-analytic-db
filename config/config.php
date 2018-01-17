@@ -7,7 +7,7 @@
          * 开启日志记录功能需要执行数据库迁移console: php artisan migrate
          * 如果是分库，需要执行配置sql记录的数据库连接
          */
-        'record' => true,
+        'record' => false,
 
         /**
          * 默认的阿里云数据库连接

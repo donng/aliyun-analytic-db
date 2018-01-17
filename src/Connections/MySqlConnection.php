@@ -86,11 +86,11 @@ class MySqlConnection extends Connection
      */
     protected function fetchData($fetchType)
     {
-        $startTime = time();
+        $startTime = $this->getCurrentTime();
 
         $result = $this->executeSql($fetchType);
 
-        $time = time() - $startTime;
+        $time = round($this->getCurrentTime() - $startTime, 3);
 
         if ($result && $this->needRecord()) {
             $this->record($time);
@@ -138,5 +138,13 @@ class MySqlConnection extends Connection
     protected function needRecord()
     {
         return $this->record['record'] === true;
+    }
+
+
+    private function getCurrentTime()
+    {
+        list($usec, $sec) = explode(' ', microtime());
+
+        return ((float)$usec + (float)$sec);
     }
 }
