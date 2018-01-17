@@ -21,7 +21,16 @@ require: {
 ```bash
 php artisan vendor:publish --provider="Donng\AnalyticDB\Providers\AnalyticDBProvider"
 ```
-##### ② 生成sql记录的表 
+
+##### ② 配置数据库信息
+在 .env 文件中配置阿里云的数据库连接和sql记录的数据库连接名称.
+> 如果不配置以下两个常量，将连接数据库配置文件中的默认配置。
+
+```
+ANALYTIC_CONNECTION=your analytic connection
+RECORD_CONNECTION=your record connection
+```
+##### ③ 数据库迁移（生成sql记录的表 ）
 ```bash
 php artisan migrate
 ```
@@ -41,3 +50,6 @@ $result = AnalyticDB::select($sql)->disableRecord()->get();
 2. ```->get() // 查询所有记录```
 3. ```->first()        // 查询一条记录```
 4. ```disableRecord()  // 此条记录禁用记录功能```
+
+
+
