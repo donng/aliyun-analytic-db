@@ -11,7 +11,7 @@ composer require donng/aliyun-analytic-db
 ##### ② 直接编辑composer.json
 ```json
 require: {
-    "donng/aliyun-analytic-db": "^1.1",
+    "donng/aliyun-analytic-db": "^1.4",
 }
 ```
 然后运行 ```composer update```
