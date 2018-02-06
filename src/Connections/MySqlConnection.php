@@ -26,6 +26,14 @@ class MySqlConnection extends Connection
     protected $record;
 
     /**
+     * 是否预编译
+     * @var
+     */
+    protected $prepare = true;
+
+    protected $pdo;
+
+    /**
      * 当前执行的sql
      * @var
      */
@@ -69,6 +77,14 @@ class MySqlConnection extends Connection
         return $this;
     }
 
+    /**
+     * 不执行预编译程序
+     */
+    public function withoutPrepare()
+    {
+        $this->prepare = false;
+    }
+
     public function get()
     {
         return $this->fetchData('fetchAll');
@@ -77,6 +93,25 @@ class MySqlConnection extends Connection
     public function first()
     {
         return $this->fetchData('fetch');
+    }
+
+    /**
+     * 数据插入
+     * @param $sql
+     * @param $bindingArr
+     * @return mixed
+     */
+    public function insert($sql, $bindingArr)
+    {
+        if (true === $this->prepare) {
+            // 执行预编译的sql
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->execute($bindingArr);
+        } else {
+            $this->pdo->exec($sql);
+        }
+
+        return $this->pdo->lastInsertId;
     }
 
     /**
@@ -108,7 +143,9 @@ class MySqlConnection extends Connection
     {
         $query = $this->getQuery($this->sql);
 
-        $result = $result = call_user_func_array([$query, $fetchType], [\PDO::FETCH_ASSOC]);
+        throw_unless($query, new \Exception('查询错误sql：' . $this->sql));
+
+        $result = call_user_func_array([$query, $fetchType], [\PDO::FETCH_ASSOC]);
 
         return $result;
     }
@@ -128,7 +165,17 @@ class MySqlConnection extends Connection
      */
     protected function record($time)
     {
-        DB::connection($this->record['record_connection'])->insert('insert into sql_records (`sql`, `time`) values (?, ?)', [$this->sql, $time]);
+        $currentTime = date('Y-m-d H:i:s', time());
+
+        $data = [
+            'sql' => $this->sql,
+            'time' => $time,
+            'created_at' => $currentTime,
+            'updated_at' => $currentTime
+        ];
+
+        DB::connection($this->record['record_connection'])->insert('insert into sql_records (`sql`, `time`, `created_at`, `updated_at`) 
+                                                                    values (:sql, :time, :created_at, :updated_at)', $data);
     }
 
     /**

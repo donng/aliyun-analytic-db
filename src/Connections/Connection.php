@@ -21,4 +21,12 @@ abstract class Connection
      * @return mixed
      */
     abstract function first();
+
+    /**
+     * 插入数据
+     * @param $sql
+     * @param $bindingArr
+     * @return mixed
+     */
+    abstract function insert($sql, $bindingArr);
 }
