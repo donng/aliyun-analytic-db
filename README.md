@@ -58,8 +58,8 @@ $result = AnalyticDB::select($sql)->disableRecord()->get();
 2. ```->get() // 查询所有记录```
 3. ```->first()        // 查询一条记录```
 4. ```disableRecord()  // 此条记录禁用记录功能```
-5. ```withoutPrepare()  // 此条查询不执行预编译```
-6. ```insert()```       // 插入数据```
+5. ```withoutPrepare() // 此条查询不执行预编译```
+6. ```insert()         // 插入数据```
 
 
 
