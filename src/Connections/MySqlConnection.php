@@ -83,6 +83,8 @@ class MySqlConnection extends Connection
     public function withoutPrepare()
     {
         $this->prepare = false;
+
+        return $this;
     }
 
     public function get()
@@ -101,17 +103,17 @@ class MySqlConnection extends Connection
      * @param $bindingArr
      * @return mixed
      */
-    public function insert($sql, $bindingArr)
+    public function insert($sql, $bindingArr = [])
     {
         if (true === $this->prepare) {
             // 执行预编译的sql
             $stmt = $this->pdo->prepare($sql);
-            $stmt->execute($bindingArr);
+            $result = $stmt->execute($bindingArr);
         } else {
-            $this->pdo->exec($sql);
+            $result =  $this->pdo->exec($sql);
         }
 
-        return $this->pdo->lastInsertId;
+        return $result;
     }
 
     /**

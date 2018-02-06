@@ -11,7 +11,7 @@ composer require donng/aliyun-analytic-db
 ##### ② 直接编辑composer.json
 ```json
 require: {
-    "donng/aliyun-analytic-db": "^1.1",
+    "donng/aliyun-analytic-db": "^1.4",
 }
 ```
 然后运行 ```composer update```
@@ -41,8 +41,16 @@ php artisan migrate
 ```php
 use AnalyticDB;
 
+// 插入记录(无绑定)
+$result = AnalyticDB::withoutPrepare()->insert($sql);
+// 插入记录(预编译，绑定数据)
+$result = AnalyticDB::insert($sql, $bindingArr);
+
+// 获得所有记录
 $result = AnalyticDB::select($sql)->get();
+// 获得第一条记录
 $result = AnalyticDB::select($sql)->first();
+// 不记录sql获取数据（可在配置文件中配置record => false 全部禁用记录sql）
 $result = AnalyticDB::select($sql)->disableRecord()->get();
 ```
 ###### 当前可调用方法
@@ -50,6 +58,8 @@ $result = AnalyticDB::select($sql)->disableRecord()->get();
 2. ```->get() // 查询所有记录```
 3. ```->first()        // 查询一条记录```
 4. ```disableRecord()  // 此条记录禁用记录功能```
+5. ```withoutPrepare() // 此条查询不执行预编译```
+6. ```insert()         // 插入数据```
 
 
 
